@@ -1,0 +1,18 @@
+<mat-nav-list>
+  <div mat-subheader>Cadastros</div>
+  @for (menu of menus; track menu) {
+  <mat-list-item [routerLink]="[menu.routerLink]" (click)="menuSelect()">
+      <mat-icon matListItemIcon>{{menu.iconName}}</mat-icon>
+      <div matListItemTitle>{{ menu.name }}</div>
+      <div matListItemLine>{{ menu.description }}</div>
+  </mat-list-item>
+  }
+  <mat-divider></mat-divider>
+  @for (menu of configs; track menu) {
+    <mat-list-item [routerLink]="[menu.routerLink]" (click)="menuSelect()">
+      <mat-icon matListItemIcon>{{menu.iconName}}</mat-icon>
+      <div matListItemTitle>{{ menu.name }}</div>
+      <div matListItemLine>{{ menu.description }}</div>
+  </mat-list-item>
+  }
+</mat-nav-list>

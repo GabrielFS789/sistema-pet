@@ -1,0 +1,20 @@
+@if (isLogged) {
+<div id="app">
+  <mat-drawer-container autosize>
+    <app-toolbar (toggleSideBarEmitter)="toggleSideBar()"/>
+    <mat-drawer #drawer mode="push">
+      <button mat-icon-button (click)="toggleSideBar()">
+        <mat-icon>menu_open</mat-icon>
+      </button>
+      <app-list-sidebar (menuSelectEmitter)="toggleSideBar()" />
+    </mat-drawer>
+    <div style="height: calc(100vh - 70px); padding-top: 5px; background: white">
+      <router-outlet />
+    </div>
+  </mat-drawer-container>
+</div>
+}@else {
+<div id="app">
+  <app-login/>
+</div>
+}

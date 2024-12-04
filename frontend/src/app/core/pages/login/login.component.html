@@ -1,0 +1,36 @@
+<div class="container">
+  <form [formGroup]="loginForm">
+    <mat-card>
+      <img mat-card-xl-image src="logo_exemplo.svg" />
+
+      <mat-card-content>
+        <mat-form-field appearance="outline" style="width: 600px">
+          <mat-label>Email</mat-label>
+          <mat-icon matPrefix>email</mat-icon>
+          <input type="email" matInput formControlName="email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <mat-icon matPrefix>password</mat-icon>
+          <input [type]="!showPassword ? 'password' : 'text'" matInput formControlName="password"/>
+          <button matSuffix mat-icon-button (click)="showPassword = !showPassword">
+            <mat-icon>
+              {{showPassword ? 'visibility' : 'visibility_off'}}
+              </mat-icon>
+          </button>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions style="width: 100%">
+        <button
+          mat-fab
+          style="width: 100%"
+          (click)="login()"
+          [disabled]="!loginForm.valid"
+        >
+          Login
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

@@ -1,0 +1,186 @@
+<form [formGroup]="petForm">
+  <div class="expansion-container">
+    <mat-expansion-panel class="full-width-panel">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Cachorro </mat-panel-title>
+        <mat-panel-description>
+          {{ isEdit ? this.pet?.petNome : "Novo Cadastro" }}
+          <mat-icon>pets</mat-icon>
+        </mat-panel-description>
+        <div>
+          <span class="doencas-header">
+            Doenças / Fraturas / Medos:
+            {{ fraturas.length + medos.length + doencas.length }}
+          </span>
+        </div>
+      </mat-expansion-panel-header>
+
+      <mat-form-field>
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="petNome" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Sexo</mat-label>
+        <mat-select formControlName="petSexo">
+          <mat-option value="" disabled>Informe o sexo</mat-option>
+          @for (sexo of sexos; track sexo) {
+          <mat-option [value]="sexo.value">{{ sexo.viewValue }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Data De Nascimento</mat-label>
+        <input
+          matInput
+          [matDatepicker]="dataNascimento"
+          formControlName="petNascimento"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="dataNascimento"
+        ></mat-datepicker-toggle>
+        <mat-datepicker touchUi #dataNascimento></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Raça</mat-label>
+        <mat-select formControlName="racaId">
+          <mat-option value="" disabled>Selecione a raça</mat-option>
+          <mat-option (click)="adicionarRaca()">Adicionar</mat-option>
+          @for (raca of racas; track raca) {
+          <mat-option [value]="raca.id">{{ raca.nome }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <div style="display: flex; width: 100%">
+        <div class="doenca-panel">
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Doenças</mat-panel-title>
+            </mat-expansion-panel-header>
+            <button mat-icon-button (click)="addDoenca()">
+              <mat-icon>add</mat-icon>
+            </button>
+            <ng-template matExpansionPanelContent formArrayName="doencas">
+              <ng-container
+                *ngFor="let doenca of doencas.controls; let i = index"
+              >
+                <div [formGroupName]="i" style="width: 100%">
+                  <mat-form-field style="width: 100%">
+                    <mat-label>Doença</mat-label>
+                    <input matInput formControlName="doenca" />
+                    <button mat-icon-button matSuffix (click)="removeDoenca(i)">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+              </ng-container>
+            </ng-template>
+          </mat-expansion-panel>
+        </div>
+
+        <div class="fratura-panel">
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Fraturas</mat-panel-title>
+            </mat-expansion-panel-header>
+            <button mat-icon-button (click)="addFratura()">
+              <mat-icon>add</mat-icon>
+            </button>
+            <ng-template matExpansionPanelContent formArrayName="fraturas">
+              <ng-container
+                *ngFor="let fratura of fraturas.controls; let i = index"
+              >
+                <div [formGroupName]="i" style="width: 100%">
+                  <mat-form-field style="width: 100%">
+                    <mat-label>Fratura</mat-label>
+                    <input matInput formControlName="fratura" />
+                    <button
+                      mat-icon-button
+                      matSuffix
+                      (click)="removeFratura(i)"
+                    >
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+              </ng-container>
+            </ng-template>
+          </mat-expansion-panel>
+        </div>
+
+        <div class="medos-panel">
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Medos</mat-panel-title>
+            </mat-expansion-panel-header>
+            <button mat-icon-button (click)="addMedo()">
+              <mat-icon>add</mat-icon>
+            </button>
+            <ng-template matExpansionPanelContent formArrayName="medos">
+              <ng-container *ngFor="let medo of medos.controls; let i = index">
+                <div [formGroupName]="i" style="width: 100%">
+                  <mat-form-field style="width: 100%">
+                    <mat-label>Medo</mat-label>
+                    <input matInput formControlName="medo" />
+                    <button mat-icon-button matSuffix (click)="removeMedo(i)">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </div>
+              </ng-container>
+            </ng-template>
+          </mat-expansion-panel>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Dono</mat-panel-title>
+        <mat-panel-description>{{
+          isEdit ? this.pet?.donoNome : ""
+        }}</mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <ng-template matExpansionPanelContent>
+        <mat-form-field>
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="donoNome" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Endereço</mat-label>
+          <input matInput formControlName="donoEndereco" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Numero</mat-label>
+          <input matInput formControlName="donoNumeroEndereco" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Complemento</mat-label>
+          <input matInput formControlName="donoComplemento" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Telefone</mat-label>
+          <input matInput formControlName="donoTelefone" />
+          <mat-icon matPrefix>phone</mat-icon>
+        </mat-form-field>
+      </ng-template>
+    </mat-expansion-panel>
+  </div>
+</form>
+<br />
+@if (!isEdit) {
+
+<button mat-flat-button (click)="add()" [disabled]="!petForm.valid">
+  Cadastrar
+</button>
+}@else {
+<button mat-flat-button (click)="update()" [disabled]="!petForm.valid">Atualizar</button>}

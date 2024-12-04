@@ -1,0 +1,21 @@
+<form [formGroup]="racaDetail">
+
+    <mat-form-field>
+        <mat-label>Codigo</mat-label>
+        <input type="number" matInput formControlName="id"/>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Nome</mat-label>
+        <input type="text" matInput formControlName="nome"/>
+    </mat-form-field>
+    <mat-checkbox formControlName="inativo">Inativo</mat-checkbox>
+    <mat-form-field>
+        <mat-label>Data Hora Cadastro</mat-label>
+        <input matInput formControlName="dataHoraCadastro">
+    </mat-form-field>
+
+
+    <button *ngIf="isEdit" mat-flat-button (click)="cadastrar()">Cadastrar</button>
+    <button *ngIf="!isEdit" mat-flat-button (click)="update()">Atualizar</button>
+    <button mat-raised-button (click)="voltar()">Voltar</button>
+</form>

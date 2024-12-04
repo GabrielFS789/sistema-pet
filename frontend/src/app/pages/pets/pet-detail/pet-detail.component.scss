@@ -1,0 +1,18 @@
+.expansion-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Espaço entre os painéis, se necessário */
+}
+
+.full-width-panel {
+  width: 100%;
+}
+.doencas-header {
+  margin-right: 30px;
+}
+.fratura-panel,
+.medos-panel,
+.doenca-panel {
+  width: 100%;
+  margin: 2px;
+}
